@@ -48,7 +48,6 @@ public class emailService {
 	        
 
 	        try {
-	        	//request.addHeader("Authorization", "Bearer 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");
 	            request.setMethod(Method.POST);
 	            request.setEndpoint("mail/send");
 	            request.setBody(mail.build());
