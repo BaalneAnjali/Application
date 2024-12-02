@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.example.APIFiles.Dto.userDto;
 import com.example.APIFiles.Entity.userEntity;
+import com.example.APIFiles.Service.emailService;
 import com.example.APIFiles.Service.userService;
 
 @RestController
@@ -22,6 +23,9 @@ public class userController implements ErrorController {
 	
 	 @Autowired
 	 public userService UserService;
+	 
+	 @Autowired
+	 public emailService Emailservice;
 	 
 	 @PostMapping("/addUser")
 	 public userEntity addUser(@Validated @RequestBody userDto userDTO) {
@@ -131,4 +135,19 @@ public class userController implements ErrorController {
 	    public String getErrorPath() {
 	        return "/error";
 	    }
+	    
+	    
+		/*
+		 * @GetMapping("/send-email") public String sendEmail() { userEntity userentity
+		 * = userEntity(); String Email = userentity.geteMail();
+		 * System.out.println("Mail id Is : " +Email); try {
+		 * Emailservice.sendEmailByMail(Email, "Test Subject", "Test Email Body");
+		 * return "Email sent successfully!"; } catch (Exception e) {
+		 * e.printStackTrace(); return "Failed to send email."; } }
+		 */	
+	    
+	    private userEntity userEntity() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 }

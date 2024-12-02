@@ -44,29 +44,39 @@ public class userServiceImpl  implements userService {
 		userentity.setUserRoleId(userDTO.getUserRoleId());
 		
         userEntity savedUser = UserRepository.save(userentity);
+        sendEmail(userDTO.geteMail());
 		
-		String emailBody = String.format(
-                "Hello %s,\n\nThank you for registering. Your security key is : %s.\n\nRegards,\nYour Team",
-                userDTO.getUserName(),
-                securityKey
-        );
-        System.out.print(" entered into 52 ");
-        try {
-            System.out.print(" entered into sendEmail  method ");
-			mailSender.sendEmail(userDTO.geteMail(), " Your Registration Security Key ", emailBody);
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-	        System.out.print(" mail is " +userDTO.geteMail());
-         System.out.print(" entered into 53 ");
-// Send the email
-		
+		/*
+		 * String emailBody = String.format(
+		 * "Hello %s,\n\nThank you for registering. Your security key is : %s.\n\nRegards,\nYour Team"
+		 * , userDTO.getUserName(), securityKey );
+		 * System.out.print(" entered into 52 "); try {
+		 * System.out.print(" entered into sendEmail  method ");
+		 * mailSender.sendEmail(userDTO.geteMail(), " Your Registration Security Key ",
+		 * emailBody);
+		 * 
+		 * } catch (IOException e) { // TODO Auto-generated catch block
+		 * e.printStackTrace(); } System.out.print(" mail is " +userDTO.geteMail());
+		 * System.out.print(" entered into 53 "); // Send the email
+		 */		
+        
 
         return savedUser;
 
 	}
+	    public String sendEmail(String Email) { 
+			/*
+			 * userDto userdto = new userDto(); String Email = userdto.geteMail();
+			 */
+		 System.out.println("Mail id Is : " +Email); 
+		 try {
+		 mailSender.sendEmailByMail(Email, "Test Subject", "Test Email Body");
+		 return "Email sent successfully!"; 
+		 }
+		 catch (Exception e) {
+		 e.printStackTrace(); return "Failed to send email.";
+		 }
+		 }
 	
 		@Override
 		public List<userEntity> getAllEntities() {
@@ -110,6 +120,7 @@ public class userServiceImpl  implements userService {
 		}
 		
 		 public boolean validateUser(String userName, String password) {
+			    System.out.println(" user Name is : " +userName+ " password is : "  +password);
 		        return UserRepository.findByUserName(userName)
 		                .map(userEntity -> userEntity.getPassWord().equals(password)) // In production, use hashed passwords
 		                .orElse(false);
